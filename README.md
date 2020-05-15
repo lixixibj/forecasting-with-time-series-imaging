@@ -26,7 +26,7 @@ Dependency packages
 
 This code depends some package with specific versions. Before using it, install these packages first.
 
-For feature extraction, please install 
+We use python3.6 for this project. For feature extraction, please install 
 
 - pip install tensorflow==1.2.1 
 - pip install scipy==1.2.1
