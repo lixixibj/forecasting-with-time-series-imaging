@@ -39,7 +39,7 @@ For model commbination, please install `xgboost` first as follows
 
 The structure of the project
 ========
-![](project-structure.PNG)
+![](project-structure.png)
 
 Usage
 ========
