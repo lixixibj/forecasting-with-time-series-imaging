@@ -142,26 +142,26 @@ image.based.model.combination<-function(data.type.of.training.data,
   
 }
 
-# #1.inception V1
-# #test the code
-# data.type.of.training.data='Monthly'
-# data.type.of.testing.data='MONTHLY'
-# training.dataset=M4
-# testing.dataset=tourism
-# feature.type='inception_v1'
-# file.path.of.training.data.features='C:/xixi/feature_extraction/cnn/cnn-features/M4/Monthly-train-feature-inception_v1.csv'
-# file.path.of.testing.data.features='C:/xixi/feature_extraction/cnn/cnn-features/Tourism/tourism-monthly-train-feature-inception_v1.csv'
-# file.path.of.training.data.prediction.value='./forecasts/M4/Monthly_ff.rda'
-# file.path.of.testing.data.prediction.value='./forecasts/Tourism/MONTHLY_ff.rda'
-# image.based.model.combination(data.type.of.training.data,
-#                               data.type.of.testing.data,
-#                               training.dataset,
-#                               testing.dataset,
-#                               feature.type,
-#                               file.path.of.training.data.features,
-#                               file.path.of.testing.data.features,
-#                               file.path.of.training.data.prediction.value,
-#                               file.path.of.testing.data.prediction.value)
+#1.inception V1
+#test the code
+data.type.of.training.data='Monthly'
+data.type.of.testing.data='MONTHLY'
+training.dataset=M4
+testing.dataset=tourism
+feature.type='inception_v1'
+file.path.of.training.data.features='C:/xixi/feature_extraction/cnn/cnn-features/M4/Monthly-train-feature-inception_v1.csv'
+file.path.of.testing.data.features='C:/xixi/feature_extraction/cnn/cnn-features/Tourism/tourism-monthly-train-feature-inception_v1.csv'
+file.path.of.training.data.prediction.value='./forecasts/M4/Monthly_ff.rda'
+file.path.of.testing.data.prediction.value='./forecasts/Tourism/MONTHLY_ff.rda'
+image.based.model.combination(data.type.of.training.data,
+                              data.type.of.testing.data,
+                              training.dataset,
+                              testing.dataset,
+                              feature.type,
+                              file.path.of.training.data.features,
+                              file.path.of.testing.data.features,
+                              file.path.of.training.data.prediction.value,
+                              file.path.of.testing.data.prediction.value)
 
 #2.resnet50
 #test the code
