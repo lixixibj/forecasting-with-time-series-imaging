@@ -9,7 +9,7 @@ This page introduces how to use our code for image based time series forecasting
 - feature extraction with sift or pretrained CNN
 - model combination based on extracted feature
 
-We completed feature extraction with python because python supports image processing well, while for model commbination, we choosed R because R supports statistical forecasting methods very well.
+We completed feature extraction with python because python supports image processing well, while for model combination, we choosed R because R supports statistical forecasting methods very well.
 
 
 
