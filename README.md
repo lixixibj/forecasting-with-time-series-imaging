@@ -65,7 +65,7 @@ We show an exmple:
     num_cores=4
     image_based_batch_ts_feature_extraction_with_sift(file_path_of_ts,file_path_of_feature,num_cores)
     ```
-The ouput is features of time series images and its shape is n*4200, where n is the number of time series.
+    The ouput is features of time series images and its shape is n*4200, where n is the number of time series.
 1.2 feature extraction with pretrained-CNN
 -----------------
 In the folder `feature_extraction/feature_extraction_with_pretrained_CNN`, the function `image_based_batch_ts_feature_extraction_with_sift()` in the file `compute_features_cnn.py` is used to compute features of time series image.
