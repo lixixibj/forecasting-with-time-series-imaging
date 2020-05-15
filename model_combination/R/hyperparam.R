@@ -5,7 +5,7 @@ hyperparameter_search <- function(dataset, filename="meta_hyper.RData", n_iter=1
   N_THREAD = n.cores
   whole_dataset <- dataset
   #prepare the folds
-  folds <- rBayesianOptimization::KFold(1:length(whole_dataset), nfolds=5, seed=31-05-2888)
+  folds <- rBayesianOptimization::KFold(1:length(whole_dataset), nfolds=5, seed=31-05-2018)
 
   train_ds <- NULL
   test_ds <- NULL
