@@ -1,1 +1,1 @@
-You can download from <https://mofc.unic.ac.cy/the-dataset/>
+You can download M4 data from <https://mofc.unic.ac.cy/the-dataset/>.
