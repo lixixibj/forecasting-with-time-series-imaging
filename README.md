@@ -33,7 +33,7 @@ We use python3.6 for this project. For feature extraction, please install
 - pip install opencv-contrib-python==3.4.2.17
 - conda install opencv-contrib-python==3.4.2.17 
 
-For model commbination, please install `xgboost` first as follows
+For model combination, please install `xgboost` first as follows
 
 - devtools::install_github("pmontman/customxgboost")
 
