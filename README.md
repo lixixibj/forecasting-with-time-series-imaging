@@ -57,7 +57,7 @@ Parameters explaination for this function `image_based_batch_ts_feature_extracti
 - `file_path_of_feature`: the file path where you want to save the extracted feature. In this project, we save the extracted features in `feature_extraction/feature_extraction_with_sift/sift-features`.
 - `num_cores ` : number of cores that you want to use when parallel computing.
 
-We show an exmple:
+We show an exmple of extracting sift features of M4 mmonthly dataset:
 
     ```python
     file_path_of_ts='../ts-data/M4/M4DataSet/Monthly-train.csv'
@@ -77,7 +77,7 @@ Parameters explaination for function `image_based_batch_ts_feature_extraction_wi
 - `cnn_model_name`: which pretrained CNN models you want to use, options include `inception_v1 `,`resnet_v1 _101`,`resnet_v1_50` and `vgg_19`.
 - `file_path_of_pretrained_model`: file path of pretrained models. You can download all the pretrained models in the following content.
 
-We show an exmple:
+We show an exmple of extracting inception-v1 features of M4 monthly dataset:
 
     ```python
     file_path_of_ts='../ts-data/M4/M4DataSet/Monthly-train.csv'
