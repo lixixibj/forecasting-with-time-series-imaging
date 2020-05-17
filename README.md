@@ -167,7 +167,7 @@ Parameters explaination for this function
                                 file.path.of.testing.data.prediction.value)
 ```
 
-We show an example that get forecasts of Tourism monthly data with M4 monthly data as training data:
+We show an example of getting forecasts of Tourism monthly data with M4 monthly data as training data:
 
     ```r
     data.type.of.training.data='Monthly'
