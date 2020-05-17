@@ -31,7 +31,7 @@ We use python3.6 for this project. For feature extraction, please install
 - pip install tensorflow==1.2.1 
 - pip install scipy==1.2.1
 - pip install opencv-contrib-python==3.4.2.17
-- conda install opencv-contrib-python==3.4.2.17 
+- pip install opencv-contrib-python==3.4.2.17 
 
 For model combination, please install `xgboost` first as follows
 
@@ -123,7 +123,7 @@ Here, I will brifely introduce the function of other `.R` files.
 - `forec_methods_list.R`: it is used to compute the forecasts of 9 candidate methods.
 - `process_dataset.R`: it is used to compute the accuracy of forecasting methods.
 - `combination_ensemble.R`: it is used to define the custom loss function of `xgboost`.
-- `ensemble_classifier.R': it is used to train and test the `xgboost` model.
+- `ensemble_classifier.R`: it is used to train and test the  `xgboost` model.
 -  `hyperparam.R`: hyperparameters optimization for `xgboost`.
 -  `tourism.benchmarks.R`: it is used to compute forecasts of the top methods in toursim competition.
 
