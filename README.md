@@ -1,5 +1,4 @@
-
-Image based time series forecasting
+Forecasting with time series imaging
 ================
 Xixi Li
 2020-05-11
