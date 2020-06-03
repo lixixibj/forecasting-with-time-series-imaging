@@ -124,6 +124,7 @@ Here, I will brifely introduce the function of other `.R` files.
 - `combination_ensemble.R`: it is used to define the custom loss function of `xgboost`.
 - `ensemble_classifier.R`: it is used to train and test the  `xgboost` model.
 -  `hyperparam.R`: hyperparameters optimization for `xgboost`.
+-  `hyperparam.search.main.R`:  an example show how to get opyimal hyperparameters for `xgboost`.
 -  `tourism.benchmarks.R`: it is used to compute forecasts of the top methods in toursim competition.
 
 
@@ -163,7 +164,9 @@ Parameters explaination for this function
                                 
                                 #8.file path of the forecasts of 9 methods of testing data, in 'rda' format,
                                 we provide an example in the project
-                                file.path.of.testing.data.prediction.value)
+                                file.path.of.testing.data.prediction.value,
+                                #9.params for xgboost
+                                params)
 ```
 
 We show an example of getting forecasts of Tourism monthly data with M4 monthly data as training data:
@@ -174,6 +177,7 @@ We show an example of getting forecasts of Tourism monthly data with M4 monthly 
     training.dataset=M4
     testing.dataset=tourism
     feature.type='resnet50'
+    params=c(14,1,1,0.7052)
     file.path.of.training.data.features='C:/xixi/feature_extraction/cnn/cnn-features/M4/Monthly-train-feature-resnet_v1_50.csv'
     file.path.of.testing.data.features='C:/xixi/feature_extraction/cnn/cnn-features/Tourism/tourism-monthly-train-feature-resnet_v1_50.csv'
     file.path.of.training.data.prediction.value='./forecasts/M4/Monthly_ff.rda'
@@ -186,7 +190,8 @@ We show an example of getting forecasts of Tourism monthly data with M4 monthly 
                               file.path.of.training.data.features,
                               file.path.of.testing.data.features,
                               file.path.of.training.data.prediction.value,
-                              file.path.of.testing.data.prediction.value)
+                              file.path.of.testing.data.prediction.value,
+                              params)
     ```
 Then, we can get the forecasting accuracy of the combination method on the targeted dataset.
 
