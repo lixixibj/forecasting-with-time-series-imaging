@@ -1,3 +1,4 @@
+source('process_dataset.R')
 check_customxgboost_version <- function() {
   #check if the custom xgboost version is installed
   if ( !requireNamespace("xgboost", quietly = TRUE)
@@ -101,21 +102,27 @@ create_feat_classif_problem <- function(dataset) {
 #' @param labels A numeric vector from 0 to (nclass -1) with the targe labels for classification.
 #'
 #' @export
-train_selection_ensemble <- function(data, errors, param=NULL) {
+train_selection_ensemble <- function(data, errors, param) {
 
   check_customxgboost_version()
 
   dtrain <- xgboost::xgb.DMatrix(data)
   attr(dtrain, "errors") <- errors
 
-  if (is.null(param)) {
-    param <- list(max_depth=14, eta=0.575188, nthread = 3, silent=1,
+   # if (is.null(param)) {
+   #  param <- list(max_depth=14, eta=0.575188, nthread = 3, silent=1,
+   #                objective=error_softmax_obj,
+   #                num_class=ncol(errors),
+   #                subsample=0.9161483,
+   #                colsample_bytree=0.7670739
+   #  )
+   # }
+    param <- list(max_depth=param[1], eta=param[2], nthread = 4, silent=1,
                   objective=error_softmax_obj,
                   num_class=ncol(errors),
-                  subsample=0.9161483,
-                  colsample_bytree=0.7670739
+                  subsample=param[3],
+                  colsample_bytree=param[4]
     )
-  }
 
   bst <- xgboost::xgb.train(param, dtrain, 94)
   bst
@@ -159,7 +166,7 @@ ensemble_forecast <- function(predictions, dataset, clamp_zero=TRUE) {
 summary_performance <- function(predictions, dataset, print.summary = TRUE) {
   stopifnot("xx" %in% names(dataset[[1]]))
   if (!("errors" %in% names(dataset[[1]]))) {
-    dataset <- calc_errors(dataset)
+    dataset <- calc_errors_new(dataset)
   }
   labels <- sapply(dataset, function(lentry) which.min(lentry$errors) - 1)
   max_predictions <- apply(predictions, 1, which.max) - 1
@@ -187,7 +194,7 @@ summary_performance <- function(predictions, dataset, print.summary = TRUE) {
                                oracle_ff)
     }
 
-    dataset <- calc_errors(dataset)
+    dataset <- calc_errors_new(dataset)
     all_errors <- sapply(dataset, function (lentry) {
       lentry$errors})
 
