@@ -5,7 +5,7 @@ hyperparameter_search <- function(dataset, filename="meta_hyper.RData", n_iter=1
   N_THREAD = n.cores
   whole_dataset <- dataset
   #prepare the folds
-  folds <- rBayesianOptimization::KFold(1:length(whole_dataset), nfolds=5, seed=31-05-2018)
+  folds <- rBayesianOptimization::KFold(1:length(whole_dataset), nfolds=100, seed=31-05-2018)
 
   train_ds <- NULL
   test_ds <- NULL
@@ -40,8 +40,8 @@ hyperparameter_search <- function(dataset, filename="meta_hyper.RData", n_iter=1
       attr(dtrain, "errors") <- train_feat[[i]]$errors
 
       bst <- xgboost::xgb.train(param, dtrain, nrounds)
-      preds <- M4metalearning::predict_selection_ensemble(bst, test_feat[[i]]$data)
-      er <- M4metalearning::summary_performance(preds,
+      preds <-predict_selection_ensemble(bst, test_feat[[i]]$data)
+      er <- summary_performance(preds,
                                                 test_ds[[i]],
                                                 print.summary = FALSE)
 
@@ -64,14 +64,14 @@ hyperparameter_search <- function(dataset, filename="meta_hyper.RData", n_iter=1
                         eta=0.4,
                         subsample=0.9,
                         colsample_bytree=0.6,
-                        nrounds=200)
+                        nrounds=30)
 
   k=2
-  bay_res <- rBayesianOptimization::BayesianOptimization(bayes_xgb, bounds=list(max_depth=c(6L,14L),
-                                                         eta=c(0.001, 1.0),
-                                                         subsample=c(0.5,1.0),
-                                                         colsample_bytree=c(0.5,1.0),
-                                                         nrounds=c(1L,250L)),
+  bay_res <- rBayesianOptimization::BayesianOptimization(bayes_xgb, bounds=list(max_depth=c(6L,25L),
+                                                         eta=c(0.01, 1.0),
+                                                         subsample=c(0.7,1.0),
+                                                         colsample_bytree=c(0.7,1.0),
+                                                         nrounds=c(1L,30L)),
                                   init_grid_dt = prefound_grid,
                                   init_points= 5,
                                   kappa = 2.576,

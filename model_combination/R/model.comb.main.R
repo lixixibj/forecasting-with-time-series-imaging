@@ -1,3 +1,23 @@
+#' Feature based model averaging with xgboost.
+#' @param ts.data targeted time series to be predicted(testing data,such as M4).
+#' @param files.of.features.of.train.data files of features of training time series and features are saved in csv.Data format can be seen in the file "input.dataformat".
+#' @param dimension.of.features dimension of time series features
+#' @param files.of.owa.of.train.data files of owa(prediction error) of training time series and owa are saved in csv.Data format can be seen in the file "input.dataformat".
+#' @param files.of.features.of.test.data files of features of testing time series and features are saved in csv.Data format can be seen in the file "input.dataformat".
+#' @param files.of.prediction.value.of.different.methods files of prediction values of testing time series and prediction values are saved in csv.Data format can be seen in the file "input.dataformat".
+#' @return a dataframe of owa for the test time series datasets
+#' 
+#' @author Xixi Li, Yanfei Kang and Feng Li
+#' @examples
+#' ts.data<-M4
+#' files.of.features.of.train.data<-'E:/lixixi/M4_9_methods/process/5dimension_reduction_and_model_selection/features'
+#' dimension.of.features<-4200
+#' files.of.owa.of.train.data<-"./m4_9_methods_1-10000/train/1-100000/train_errors_new"
+#' files.of.features.of.test.data<-'E:/lixixi/M4_9_methods/process/5dimension_reduction_and_model_selection/test_features'
+#' files.of.prediction.value.of.different.methods<-"./m4_9_methods_1-10000/test/1-100000/prediction.value"
+#' owa<-features.and.owa.of.train.data(ts.data,files.of.features.of.train.data,dimension.of.features,files.of.owa.of.train.data,
+#'                                   files.of.features.of.test.data,files.of.prediction.value.of.different.methods)
+#' @export
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 source('subset_methods.R')
 source('process_dataset.R')
@@ -34,21 +54,14 @@ get.features.for.batch.ts<-function(ts.dataset,file.path.of.features){
 }
 
 
-#' Feature based model averaging with xgboost.
-#' @param data.type.of.training.data: which data you'd like to use for training the model, you can select 'yearly','quarterly','monthly','weekly','daily' and so on
-#' @param data.type.of.testing.data: which data you'd like to use for testing the model, you can select 'yearly','quarterly','monthly','weekly','daily' and so on
-#' @param training.dataset: you can choose M4 or tourism
-#' @param testing.dataset: you can choose M4 or tourism
-#' @param feature.type: feature type includes sift, inception_v1, resnet101, resnet50 and vgg19
-#' @param file.path.of.training.data.features: file path of your training data features, in 'csv' format, shape:n*f, where n is the number of time series and f is the dimension of features
-#' @param file.path.of.testing.data.features:file path of your testing data features, in 'csv' format, shape:n*f, where n is the number of time series and f is the dimension of features 
-#' @param file.path.of.training.data.prediction.value: file path of the forecasts of 9 methods of training data, in 'rda' format, we provide an example in the project
-#' @param file.path.of.testing.data.prediction.value: file path of the forecasts of 9 methods of testing data, in 'rda' format, we provide an example in the project
-#' @return a dataframe of owa for the test time series datasets
-#' 
-#' @author Xixi Li, Yanfei Kang and Feng Li
-#' @export
-
+#data.type.of.training.data:'Monthly'
+#data.type.of.testing.data:'MONTHLY'
+#training.dataset:M4
+#testing.dataset:tourism
+#file.path.of.training.data.features
+#file.path.of.training.data.features='/Users/xushengxiang/Desktop/lixixi/M4_model_selection_averaging/ts-image-forecasting/code/data/Tourism/feature/tourism-train-feature.csv'
+#file.path.of.testing.data.features
+#file.path.of.testing.data.features='/Users/xushengxiang/Desktop/lixixi/M4_model_selection_averaging/ts-image-forecasting/code/data/Tourism/feature/tourism-train-feature.csv'
 image.based.model.combination<-function(data.type.of.training.data,
                                         data.type.of.testing.data,
                                         training.dataset,
@@ -57,7 +70,8 @@ image.based.model.combination<-function(data.type.of.training.data,
                                         file.path.of.training.data.features,
                                         file.path.of.testing.data.features,
                                         file.path.of.training.data.prediction.value,
-                                        file.path.of.testing.data.prediction.value){
+                                        file.path.of.testing.data.prediction.value,
+                                        params){
   #extract monthly series as training data
   print('load prediction value of training data')
   training_data <- Filter(function(l) l$period == data.type.of.training.data, training.dataset)
@@ -101,7 +115,8 @@ image.based.model.combination<-function(data.type.of.training.data,
   ggg=round(head(train_data$data, n=3),2)
   #5 begin to train the xgboost with custom loss function
   print('training model..')
-  meta_model <- train_selection_ensemble(train_data$data, train_data$errors)
+  meta_model <- train_selection_ensemble(train_data$data, train_data$errors,params)
+  print(meta_model)
   #6.testing the model
   test_data <- create_feat_classif_problem(testing_data)
   preds <- predict_selection_ensemble(meta_model, test_data$data)
@@ -144,11 +159,13 @@ image.based.model.combination<-function(data.type.of.training.data,
 
 #1.inception V1
 #test the code
+set.seed(1111)
 data.type.of.training.data='Monthly'
 data.type.of.testing.data='MONTHLY'
 training.dataset=M4
 testing.dataset=tourism
 feature.type='inception_v1'
+params=c(25,1,0.8608,0.7)
 file.path.of.training.data.features='C:/xixi/feature_extraction/cnn/cnn-features/M4/Monthly-train-feature-inception_v1.csv'
 file.path.of.testing.data.features='C:/xixi/feature_extraction/cnn/cnn-features/Tourism/tourism-monthly-train-feature-inception_v1.csv'
 file.path.of.training.data.prediction.value='./forecasts/M4/Monthly_ff.rda'
@@ -161,15 +178,18 @@ image.based.model.combination(data.type.of.training.data,
                               file.path.of.training.data.features,
                               file.path.of.testing.data.features,
                               file.path.of.training.data.prediction.value,
-                              file.path.of.testing.data.prediction.value)
+                              file.path.of.testing.data.prediction.value,
+                              params)
 
 #2.resnet50
 #test the code
+set.seed(1112)
 data.type.of.training.data='Monthly'
 data.type.of.testing.data='MONTHLY'
 training.dataset=M4
 testing.dataset=tourism
 feature.type='resnet50'
+params=c(14,1,1,0.7052)
 file.path.of.training.data.features='C:/xixi/feature_extraction/cnn/cnn-features/M4/Monthly-train-feature-resnet_v1_50.csv'
 file.path.of.testing.data.features='C:/xixi/feature_extraction/cnn/cnn-features/Tourism/tourism-monthly-train-feature-resnet_v1_50.csv'
 file.path.of.training.data.prediction.value='./forecasts/M4/Monthly_ff.rda'
@@ -182,15 +202,18 @@ image.based.model.combination(data.type.of.training.data,
                               file.path.of.training.data.features,
                               file.path.of.testing.data.features,
                               file.path.of.training.data.prediction.value,
-                              file.path.of.testing.data.prediction.value)
+                              file.path.of.testing.data.prediction.value,
+                              params)
 
 #3.resnet101
 #test the code
+set.seed(1113)
 data.type.of.training.data='Monthly'
 data.type.of.testing.data='MONTHLY'
 training.dataset=M4
 testing.dataset=tourism
 feature.type='resnet101'
+params=c(25,1,1,1)
 file.path.of.training.data.features='C:/xixi/feature_extraction/cnn/cnn-features/M4/Monthly-train-feature-resnet_v1_101.csv'
 file.path.of.testing.data.features='C:/xixi/feature_extraction/cnn/cnn-features/Tourism/tourism-monthly-train-feature-resnet_v1_101.csv'
 file.path.of.training.data.prediction.value='./forecasts/M4/Monthly_ff.rda'
@@ -203,15 +226,18 @@ image.based.model.combination(data.type.of.training.data,
                               file.path.of.training.data.features,
                               file.path.of.testing.data.features,
                               file.path.of.training.data.prediction.value,
-                              file.path.of.testing.data.prediction.value)
+                              file.path.of.testing.data.prediction.value, 
+                              params)
 
 #4.vgg19
 #test the code
+set.seed(1114)
 data.type.of.training.data='Monthly'
 data.type.of.testing.data='MONTHLY'
 training.dataset=M4
 testing.dataset=tourism
 feature.type='vgg19'
+params=c(17,0.8422,0.9354,0.9128)
 file.path.of.training.data.features='C:/xixi/feature_extraction/cnn/cnn-features/M4/Monthly-train-feature-vgg_19.csv'
 file.path.of.testing.data.features='C:/xixi/feature_extraction/cnn/cnn-features/Tourism/tourism-monthly-train-feature-vgg_19.csv'
 file.path.of.training.data.prediction.value='./forecasts/M4/Monthly_ff.rda'
@@ -224,5 +250,29 @@ image.based.model.combination(data.type.of.training.data,
                               file.path.of.training.data.features,
                               file.path.of.testing.data.features,
                               file.path.of.training.data.prediction.value,
-                              file.path.of.testing.data.prediction.value)
+                              file.path.of.testing.data.prediction.value,
+                              params)
+
+#5.sift
+set.seed(1115)
+data.type.of.training.data='Monthly'
+data.type.of.testing.data='MONTHLY'
+training.dataset=M4
+testing.dataset=tourism
+feature.type='sift'
+params=c(14,0.5752,0.9161,0.7671)
+file.path.of.training.data.features='C:/xixi/feature_extraction/sift/sift-features/M4/M4-train-monthly-feature-sift.csv'
+file.path.of.testing.data.features='C:/xixi/feature_extraction/sift/sift-features/Tourism/tourism-train-monthly-feature-sift.csv'
+file.path.of.training.data.prediction.value='./forecasts/M4/Monthly_ff.rda'
+file.path.of.testing.data.prediction.value='./forecasts/Tourism/MONTHLY_ff.rda'
+image.based.model.combination(data.type.of.training.data,
+                              data.type.of.testing.data,
+                              training.dataset,
+                              testing.dataset,
+                              feature.type,
+                              file.path.of.training.data.features,
+                              file.path.of.testing.data.features,
+                              file.path.of.training.data.prediction.value,
+                              file.path.of.testing.data.prediction.value,
+                              params)
 
