@@ -115,7 +115,7 @@ Model | TF-Slim File | Checkpoint
 Based on the extracted features above, we can do model combination.
 
 In the folder `model_combination/R`, the main function `image.based.model.combination()` in the file `model.comb.main.for.Tourism.R` is used to do model combination for Tourism dataset using M4 dataset as training data.
-In the folder `model_combination/R`, the main function `image.based.model.combination()` in the file `model.comb.main.for.M4.R` is used to do model combination for M4 dataset using M4 temporal holdout dataset as training data.
+In the folder `model_combination/R`, the file `model.comb.main.for.M4.R` is used to do model combination for M4 dataset using M4 temporal holdout dataset as training data.
 
 Here, I will brifely introduce the function of other `.R` files.
 
