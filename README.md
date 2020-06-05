@@ -59,12 +59,12 @@ In the folder `feature_extraction/feature_extraction_with_sift`, the function `i
 
 We show an exmple of extracting sift features of M4 mmonthly dataset:
 
-    ```py
-    file_path_of_ts = '../ts-data/M4/M4DataSet/Monthly-train.csv'
-    file_path_of_feature = 'sift-features/M4/M4-monthly-feature-sift.csv'
-    num_cores = 4
-    image_based_batch_ts_feature_extraction_with_sift(file_path_of_ts, file_path_of_feature, num_cores)
-    ```
+```py
+file_path_of_ts = '../ts-data/M4/M4DataSet/Monthly-train.csv'
+file_path_of_feature = 'sift-features/M4/M4-monthly-feature-sift.csv'
+num_cores = 4
+image_based_batch_ts_feature_extraction_with_sift(file_path_of_ts, file_path_of_feature, num_cores)
+```
 The ouput is features of time series images and its shape is n-by-4200, where n is the number of time series.
 
 #### Feature extraction with pretrained-CNN
@@ -81,18 +81,18 @@ In the folder `feature_extraction/feature_extraction_with_pretrained_CNN`, the f
 
 We show an exmple of extracting inception-v1 features of M4 monthly dataset:
 
-    ```py
-    file_path_of_ts = '../ts-data/M4/M4DataSet/Monthly-train.csv'
-    file_path_of_feature = 'cnn-features/M4/M4-monthly-feature-inceptionV1.csv'
-    cnn_model_name = 'inception_v1'
-    file_path_of_pretrained_model = 'pretrained-models/inception_v1.ckpt'
+```py
+file_path_of_ts = '../ts-data/M4/M4DataSet/Monthly-train.csv'
+file_path_of_feature = 'cnn-features/M4/M4-monthly-feature-inceptionV1.csv'
+cnn_model_name = 'inception_v1'
+file_path_of_pretrained_model = 'pretrained-models/inception_v1.ckpt'
     
-    image_based_batch_ts_feature_extraction_with_cnn(
+image_based_batch_ts_feature_extraction_with_cnn(
             file_path_of_ts,
             file_path_of_feature,
             cnn_model_name,
             file_path_of_pretrained_model)
-
+```
 The ouput is features of time series images and its shape is n-by-m, where n is the number of time series and m is the dimension of the features.
 
 - Dimension of the output of the pretrained `Inception-v1` model: 1024.
