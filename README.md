@@ -213,4 +213,4 @@ Then, we can get the forecasting accuracy of the combination method on the targe
 References
 ----------
 
-- Li, Xixi, Yanfei Kang, and Feng Li. "Forecasting with time series imaging."(2019). [Working paper on arXiv](https://arxiv.org/abs/1904.08064).
+- Li, Xixi, Yanfei Kang, and Feng Li. (2020). Forecasting with time series imaging, _Expert Systems with Applications_. (In Press) [Working paper on arXiv](https://arxiv.org/abs/1904.08064).
