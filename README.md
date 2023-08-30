@@ -2,10 +2,10 @@ Forecasting with time series imaging
 ====================================
 
 
-This page introduces how to use our code for image based time series forecasting. The code is divided 2 parts:
+This page introduces how to use our code for image-based time series forecasting. The code is divided 2 parts:
 
 - feature extraction with sift or pretrained CNN
-- model combination based on extracted feature
+- model combination based on the extracted feature
 
 We completed feature extraction with Python because Python supports image processing well, while for model combination, we chose R because R supports statistical forecasting methods very well.
 
@@ -15,6 +15,21 @@ Authors
 -   [Xixi Li](https://xixili-2.wixsite.com/personal)
 -   [Yanfei Kang](https://yanfei.site/)
 -   [Feng Li](https://feng.li/)
+
+Download the code and data
+--------------------------
+
+The current repository contains large zip files for the model evaluations. If you just use the GitHub download link, you will miss those large files in e.g., `9_methods_forecasts_and_owa/` folder. Instead, you should either 
+use the following links to download those files  
+- [9_methods_forecasts_and_owa/9_methods_prediction_value_M4.zip](https://github.com/lixixibj/forecasting-with-time-series-imaging/raw/master/9_methods_forecasts_and_owa/9_methods_prediction_value_M4.zip?download=)
+- [9_methods_forecasts_and_owa/owa_train_M4_temp_holdout.zip](https://github.com/lixixibj/forecasting-with-time-series-imaging/raw/master/9_methods_forecasts_and_owa/owa_train_M4_temp_holdout.zip?download=)
+
+Or using the [Git LFS](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github) commands as 
+
+```sh
+git clone git@github.com:lixixibj/forecasting-with-time-series-imaging.git # clone t
+git lfs pull # download all large files tracked by Git LFS
+```
 
 Dependency packages
 -------------------
